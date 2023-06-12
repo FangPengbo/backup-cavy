@@ -1,0 +1,26 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: cavy
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATA_SOURCE_URL:jdbc:mysql://127.0.0.1:3306/cavy?characterEncoding=utf8}
+    username: ${DATA_SOURCE_USERNAME:xxxxxxxx}
+    password: ${DATA_SOURCE_PASSWORD:xxxxxxxx}
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+def:
+  aes-key: ${DEF_AES_KEY:osuYnpSXHvfTYBtm}
+
+task:
+  enable:
+    backup: true
+    sync: true
+  cron:
+    backup: 0 0/1 * * * ?
+    sync: 0 0/1 * * * ?

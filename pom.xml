@@ -11,21 +11,33 @@
 	<groupId>cc.focc</groupId>
 	<artifactId>cavy</artifactId>
 	<version>0.1</version>
+	<packaging>pom</packaging>
 	<name>cavy</name>
 	<description>cavy</description>
+
+
+	<modules>
+		<module>cavy-core</module>
+		<module>cavy-console</module>
+		<module>cavy-dispatch</module>
+		<module>cavy-common</module>
+	</modules>
+
 	<properties>
 		<java.version>17</java.version>
+		<hutool.version>5.8.19</hutool.version>
+		<mybatis-plus.version>3.5.3.1</mybatis-plus.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
-			<version>5.8.19</version>
+			<version>${hutool.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<!-- 添加JDBC依赖 -->
 		<dependency>
@@ -40,10 +52,8 @@
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.5.3.1</version>
+			<version>${mybatis-plus.version}</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
