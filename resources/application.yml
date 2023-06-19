@@ -1,0 +1,27 @@
+server:
+  port: 9090
+spring:
+  thymeleaf:
+    prefix: classpath:/static
+  application:
+    name: cavy
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATA_SOURCE_URL:jdbc:mysql://127.0.0.1:3306/cavy?characterEncoding=utf8}
+    username: ${DATA_SOURCE_USERNAME:root}
+    password: ${DATA_SOURCE_PASSWORD:root}
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+def:
+  aes-key: ${DEF_AES_KEY:osuYnpSXHvfTYBtm}
+  zip-key: ${DEF_ZIP_KEY:wsaYbpWXXvfFMBes}
+
+task:
+  enable:
+    backup: false
+  cron:
+    backup: 0 0/1 * * * ?

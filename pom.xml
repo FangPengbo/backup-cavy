@@ -11,25 +11,26 @@
 	<groupId>cc.focc</groupId>
 	<artifactId>cavy</artifactId>
 	<version>0.1</version>
-	<packaging>pom</packaging>
 	<name>cavy</name>
 	<description>cavy</description>
-
-
-	<modules>
-		<module>cavy-core</module>
-		<module>cavy-console</module>
-		<module>cavy-dispatch</module>
-		<module>cavy-common</module>
-	</modules>
 
 	<properties>
 		<java.version>17</java.version>
 		<hutool.version>5.8.19</hutool.version>
 		<mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+		<quartz.version>2.3.2</quartz.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
