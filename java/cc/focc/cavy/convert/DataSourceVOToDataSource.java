@@ -15,6 +15,7 @@ public class DataSourceVOToDataSource extends AbstractConvert<DataSourceVO, Data
     @Override
     public DataSource convert(DataSourceVO t) {
         DataSource v = new DataSource();
+        v.setId(t.getId());
         v.setSourceName(t.getSourceName());
         v.setSourceType(t.getSourceType());
         v.setSourceHost(t.getSourceHost());

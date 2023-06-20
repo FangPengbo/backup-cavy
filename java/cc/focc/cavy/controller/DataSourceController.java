@@ -16,6 +16,17 @@ public class DataSourceController {
     @Autowired
     private DataSourceService dataSourceService;
 
+
+    @PutMapping
+    public ResponseEntity<ResultResponse> update(@RequestBody DataSourceVO dataSourceVO){
+        return ResponseEntity.ok(ResultResponse.success(dataSourceService.update(dataSourceVO)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResultResponse> delete(@PathVariable Long id){
+        return ResponseEntity.ok(ResultResponse.success(dataSourceService.delete(id)));
+    }
+
     @PostMapping
     public ResponseEntity<ResultResponse> create(@RequestBody DataSourceVO dataSourceVO){
         return ResponseEntity.ok(ResultResponse.success(dataSourceService.save(dataSourceVO)));

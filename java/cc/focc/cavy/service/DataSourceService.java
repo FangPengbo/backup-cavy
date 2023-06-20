@@ -13,4 +13,8 @@ public interface DataSourceService extends IService<DataSource> {
     IPage<DataSourceVO> listPage(Integer page, Integer size);
 
     DataSource selectOneByPrimary(Long dataSourceId);
+
+    boolean delete(Long id);
+
+    boolean update(DataSourceVO dataSourceVO);
 }

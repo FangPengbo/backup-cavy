@@ -1,16 +1,34 @@
 package cc.focc.cavy.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Collections;
 
 @Configuration
-@ConditionalOnClass(value = {PaginationInnerInterceptor.class})
+@EnableTransactionManagement
 public class MybatisPlusConfig {
+
+
     @Bean
-    public PaginationInnerInterceptor paginationInterceptor() {
-        PaginationInnerInterceptor paginationInterceptor = new PaginationInnerInterceptor();
-        return paginationInterceptor;
+    public PaginationInnerInterceptor paginationInnerInterceptor(){
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+        paginationInnerInterceptor.setMaxLimit(-1L);
+        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+        paginationInnerInterceptor.setOptimizeJoin(true);
+        return paginationInnerInterceptor;
     }
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor(){
+        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        mybatisPlusInterceptor.setInterceptors(Collections.singletonList(paginationInnerInterceptor()));
+        return mybatisPlusInterceptor;
+    }
+
 }

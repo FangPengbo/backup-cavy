@@ -7,6 +7,7 @@ import cc.focc.cavy.mapper.DataSourceMapper;
 import cc.focc.cavy.model.vo.DataSourceVO;
 import cc.focc.cavy.service.DataSourceService;
 import cc.focc.cavy.util.AESUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,6 +46,21 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Override
     public DataSource selectOneByPrimary(Long dataSourceId) {
         return dataSourceMapper.selectById(dataSourceId);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return removeById(id);
+    }
+
+    @Override
+    public boolean update(DataSourceVO dataSourceVO) {
+        if (StrUtil.isEmpty(dataSourceVO.getSourcePwd()) || "******".equals(dataSourceVO.getSourcePwd())){
+            dataSourceVO.setSourcePwd(null);
+        }else {
+            dataSourceVO.setSourcePwd(aesUtil.encrypt(dataSourceVO.getSourcePwd()));
+        }
+        return updateById(dataSourceVOToDataSource.convert(dataSourceVO));
     }
 
 
