@@ -7,6 +7,8 @@
         select *
         from backup_job
         where job_type = 1
+        and job_enable = 'ON'
         and next_time &lt;= #{nowDate}
     </select>
+
 </mapper>

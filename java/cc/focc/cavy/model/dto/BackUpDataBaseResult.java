@@ -12,6 +12,7 @@ public class BackUpDataBaseResult {
 
     Boolean result;
     String log;
+    String dataBase;
     String filePath;
     Long fileSize;
     List<String> tables;

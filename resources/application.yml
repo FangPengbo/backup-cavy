@@ -1,6 +1,9 @@
 server:
   port: 9090
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   thymeleaf:
     prefix: classpath:/static
   application:
@@ -10,6 +13,11 @@ spring:
     url: ${DATA_SOURCE_URL:jdbc:mysql://127.0.0.1:3306/cavy?characterEncoding=utf8}
     username: ${DATA_SOURCE_USERNAME:root}
     password: ${DATA_SOURCE_PASSWORD:root}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath*:schema.sql
+
 mybatis-plus:
   mapper-locations: classpath:mapping/*Mapper.xml
   configuration:
@@ -22,6 +30,6 @@ def:
 
 task:
   enable:
-    backup: false
+    backup: true
   cron:
     backup: 0 0/1 * * * ?

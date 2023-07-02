@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.focc.cavy.mapper.BackUpJobRecordMapper" >
+
+    <select id="selectByDate" resultType="cc.focc.cavy.model.entity.BackUpJobRecord">
+        select job_result, start_time, end_time
+        from backup_job_record
+        where start_time &gt;= CONCAT(#{date},' 00:00:00') and  start_time &lt;= CONCAT(#{date},' 23:59:59')
+    </select>
+
+</mapper>

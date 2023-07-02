@@ -33,8 +33,13 @@ public class DataSourceController {
     }
 
     @GetMapping
-    public ResponseEntity<ResultResponse> listPage(@RequestParam Integer page, @RequestParam Integer size){
-        return ResponseEntity.ok(ResultResponse.success(dataSourceService.listPage(page,size)));
+    public ResponseEntity<ResultResponse> listPage(@RequestParam Integer page, @RequestParam Integer size, DataSourceVO dataSourceVO){
+        return ResponseEntity.ok(ResultResponse.success(dataSourceService.listPage(page,size,dataSourceVO)));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResultResponse> all(){
+        return ResponseEntity.ok(ResultResponse.success(dataSourceService.all()));
     }
 
 

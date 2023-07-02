@@ -18,7 +18,9 @@ public class BackUpJobVO {
     private String jobDescribe;
     private Integer jobType;
     private String jobState;
+    private String jobEnable;
     private Long dataSourceId;
+    private String dataSourceName;
     private String cronExpression;
     private Date executeTime;
     private Date lastTime;

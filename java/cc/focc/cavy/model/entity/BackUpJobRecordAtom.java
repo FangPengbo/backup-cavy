@@ -15,6 +15,7 @@ public class BackUpJobRecordAtom implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
     private Long recordId;
+    private String dataBase;
     private String result;
     private String log;
     private String filePath;

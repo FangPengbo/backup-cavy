@@ -1,8 +1,10 @@
 package cc.focc.cavy.mapper;
 
 
+import cc.focc.cavy.model.dto.BackUpJobRecordAtomDTO;
 import cc.focc.cavy.model.entity.BackUpJob;
 import cc.focc.cavy.model.entity.DataSource;
+import cc.focc.cavy.model.vo.BackUpJobRecordAtomVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

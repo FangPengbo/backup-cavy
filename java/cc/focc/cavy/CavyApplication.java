@@ -18,7 +18,7 @@ import static cc.focc.cavy.constant.ToolsConstant.*;
 public class CavyApplication {
 
 	public static void main(String[] args) {
-		checkTools();
+//		checkTools();
 		SpringApplication.run(CavyApplication.class, args);
 	}
 

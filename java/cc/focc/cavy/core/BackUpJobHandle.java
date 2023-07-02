@@ -1,7 +1,6 @@
 package cc.focc.cavy.core;
 
 import cc.focc.cavy.constant.DataSourceConstant;
-import cc.focc.cavy.constant.JobType;
 import cc.focc.cavy.model.dto.BackUpDataBaseResult;
 import cc.focc.cavy.model.dto.BackUpJobResult;
 import cc.focc.cavy.model.dto.JobPolicy;
@@ -17,8 +16,6 @@ import cc.focc.cavy.util.*;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import jakarta.annotation.Resource;
@@ -36,7 +33,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import static cc.focc.cavy.constant.BackUpConstant.*;
-import static cc.focc.cavy.constant.JobState.*;
+import static cc.focc.cavy.constant.JobConstant.*;
 
 @Slf4j
 @Component
@@ -53,8 +50,10 @@ public class BackUpJobHandle {
 
     @Autowired
     BackUpJobService backUpJobService;
+
     @Autowired
     BackUpJobRecordService backUpJobRecordService;
+
     @Autowired
     BackUpJobRecordAtomService backUpJobRecordAtomService;
 
@@ -67,8 +66,6 @@ public class BackUpJobHandle {
         BackUpJobResult jobResult = BackUpJobResult.builder().startTime(new Date()).build();
         if (DataSourceConstant.MYSQL.equals(dataSource.getSourceType())) {
             jobResult = mysqlBackUp(job, dataSource);
-        } else if (DataSourceConstant.MONGO.equals(dataSource.getSourceType())) {
-            // todo:mongo backup
         }
         jobResult.setEndTime(new Date());
         runJobAfter(job, jobResult);
@@ -83,7 +80,7 @@ public class BackUpJobHandle {
 
         BackUpJob backUpJob = backUpJobService.getById(jobId);
         BackUpJob updateJob = new BackUpJob();
-        if (JobType.CRON_JOB.equals(backUpJob.getJobType())){
+        if (CRON_JOB.equals(backUpJob.getJobType())){
             updateJob.setLastTime(backUpJob.getNextTime());
             updateJob.setNextTime(CronUtils.getNextRunTime(backUpJob.getCronExpression(),1).get(0));
         }
@@ -178,6 +175,7 @@ public class BackUpJobHandle {
                     if (StrUtil.isNotEmpty(hasError)){
                         throw new RuntimeException(hasError);
                     }
+                    StringUtil.infoLog(backUpLog, String.format("完成备份[%s]数据库的[%s]表", dataBase, table));
                 }catch (Exception e){
                     String errLog = String.format("备份[%s]数据库的[%s]表失败:[%s]", dataBase, table,e.getMessage());
                     result.setResult(false);
@@ -188,6 +186,7 @@ public class BackUpJobHandle {
             String zipCmd = String.format(CMD_ZIP_COMPRESS, zipKey, zipFilePath, backUpFilePrefix);
             log.debug("zipCmd : {}", zipCmd);
             ExecUtil.exec(zipCmd);
+            StringUtil.infoLog(backUpLog, String.format("完成备份[%s]数据库", dataBase));
         }catch (Exception e){
             String errLog = String.format("备份[%s]数据库失败:[%s]", dataBase, e.getMessage());
             result.setResult(false);
@@ -196,6 +195,7 @@ public class BackUpJobHandle {
         } finally {
             FileUtil.deleteAll(backUpFilePrefix);
         }
+        result.setDataBase(dataBase);
         result.setFileSize(FileUtil.computeFileSize(zipFilePath));
         result.setFilePath(zipFilePath);
         result.setLog(backUpLog.toString());

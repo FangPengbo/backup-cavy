@@ -17,7 +17,7 @@ public class BackUpConstant {
     public static final String CMD_CREATE_DIR = "mkdir -p %s";
 
     public static final String CMD_ZIP_COMPRESS = "zip -j -9r -P %s %s %s";
-    public static final String CMD_ZIP_UNPACK = "unzip -o -P %s %s %s";
+    public static final String CMD_ZIP_UNPACK = "unzip -o -P %s %s -d %s";
 
 
 }
