@@ -42,6 +42,7 @@
 ## ⚡️ Quick start
 ### 前置依赖
 1.创建数据库
+
 ```sql
 create schema cavy;
 ```
